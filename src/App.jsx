@@ -16,8 +16,8 @@ export function App() {
         
         <main>
           <Post 
-            author="Gabriel Lemos" 
-            content="Tempor eiusmod irure commodo consequat cupidatat est excepteur esse labore mollit proident ex id laboris."
+            name="Gabriel Lemos"
+            job="Designer"
           />
         </main>
       </div>
