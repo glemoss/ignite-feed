@@ -3,27 +3,29 @@ import { Comment } from './Comment';
 
 import styles from './Post.module.css'
 
-export function Post(props) {
+export function Post({ author, publishedAt }) {
+    const publishedDateFormatted = new Intl.DateTimeFormat('pt-BR', {
+        day: '2-digit',
+        month: 'long',
+        hour: '2-digit',
+        minute: '2-digit'
+    }).format(publishedAt)
+
     return (
         <article className={styles.post}>
             <header>
                 <div className={styles.author}>
-                    <Avatar src={props.avatar} alt="Author Avatar" />
+                    <Avatar src={author.avatarUrl} alt="Author Avatar" />
 
                     <div className={styles.authorInfo}>
-                        <strong>{props.name}</strong>
-                        <span>{props.job}</span>
+                        <strong>{author.name}</strong>
+                        <span>{author.job}</span>
                     </div>
                 </div>
-                <time>Publicado há 1h</time>
+                <time title={publishedDateFormatted}>{publishedDateFormatted}</time>
             </header>
 
             <div className={styles.content}>
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
-
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis atque magni magnam, perferendis quos fugiat ipsa repellat nulla blanditiis, sunt deserunt sapiente ullam fuga fugit. Totam amet inventore hic ipsam.</p>
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Est facere corporis accusamus quidem recusandae libero beatae sequi repellendus quis, ipsum mollitia minus aut iure voluptatum alias sapiente fugit voluptas porro.</p>
-                <p><a href="">google.com</a> <a href="">#google</a> <a href="">#dev</a></p>
             </div>
             
             <form className={styles.commentForm}>
