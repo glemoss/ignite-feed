@@ -3,7 +3,11 @@ import { PencilLine } from '@phosphor-icons/react'
 
 import styles from './Sidebar.module.css'
 
-export function Sidebar(props) {
+interface SidebarProps {
+    name: string;
+    job: string;
+}
+export function Sidebar({ name, job }: SidebarProps) {
     return (
         <aside className={styles.sidebar}>
             <img
@@ -15,8 +19,8 @@ export function Sidebar(props) {
             <div className={styles.profile}>
                 <Avatar src="https://avatars.githubusercontent.com/u/47677173?v=4"/>
 
-                <strong>{props.name}</strong>
-                <span>{props.job}</span>
+                <strong>{name}</strong>
+                <span>{job}</span>
             </div>
             <footer>
                 <a href='#'>

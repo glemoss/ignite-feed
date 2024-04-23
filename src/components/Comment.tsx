@@ -5,7 +5,12 @@ import styles from './Comment.module.css'
 import { ThumbsUp, Trash } from '@phosphor-icons/react'
 
 
-export function Comment({ content, onDeleteComment }) {
+interface CommentProps {
+    content: string,
+    onDeleteComment: Function,
+}
+
+export function Comment({ content, onDeleteComment }: CommentProps) {
     const [likeCount, setLikeCount] = useState(0);
 
     function handleNewlike() {
@@ -18,7 +23,7 @@ export function Comment({ content, onDeleteComment }) {
 
     return (
         <div className={styles.comment}>
-            <Avatar src="https://github.com/glemoss.png" alt="" hasBorder={false}/>
+            <Avatar src="https://github.com/glemoss.png" hasBorder={false}/>
             <div className={styles.commentBox}>
                 <div className={styles.commentContent}>
                     <header>

@@ -1,15 +1,32 @@
 import { format, formatDistanceToNow } from 'date-fns'
-import ptBR from 'date-fns/locale/pt-BR'
+import { ptBR } from 'date-fns/locale/pt-BR'
 
-import { useState } from 'react';
+import { ChangeEvent, FormEvent, InvalidEvent, useState } from 'react';
 
 import { Avatar } from './Avatar';
 import { Comment } from './Comment';
 
 import styles from './Post.module.css'
 
-export function Post({ author, publishedAt, content }) {
-    const [comments, setComments] = useState([])
+interface Author {
+    name: string;
+    job: string;
+    avatarUrl: string;
+}
+
+interface Content{
+    type: string,
+    content: string,
+}
+
+interface PostProps {
+    author: Author;
+    publishedAt: Date;
+    content: Content[];
+}
+
+export function Post({ author, publishedAt, content }: PostProps) {
+    const [comments, setComments] = useState<string[]>([])
 
     const [newCommentText, setNewCommentText] = useState('')
 
@@ -22,7 +39,7 @@ export function Post({ author, publishedAt, content }) {
         addSuffix: true
     });
 
-    function handleCreateNewComment() {
+    function handleCreateNewComment(event: FormEvent) {
         event.preventDefault();
 
 
@@ -31,16 +48,16 @@ export function Post({ author, publishedAt, content }) {
         setNewCommentText('');
     }
 
-    function handleNewCommentChange() {
+    function handleNewCommentChange(event: ChangeEvent<HTMLTextAreaElement>) {
         event.target.setCustomValidity('')
         setNewCommentText(event.target.value);
     }
 
-    function handleNewCommentInvalid() {
+    function handleNewCommentInvalid(event: InvalidEvent<HTMLTextAreaElement>) {
         event.target.setCustomValidity('Este campo é obrigatório!')
     }
 
-    function deleteComment(commentToDelete) {
+    function deleteComment(commentToDelete: string) {
         const commentsWithoutDeletedOne = comments.filter(comment => {
             return comment != commentToDelete
         })
@@ -54,7 +71,7 @@ export function Post({ author, publishedAt, content }) {
         <article className={styles.post}>
             <header>
                 <div className={styles.author}>
-                    <Avatar src={author.avatarUrl} alt="Author Avatar" />
+                    <Avatar src={author.avatarUrl} />
 
                     <div className={styles.authorInfo}>
                         <strong>{author.name}</strong>
